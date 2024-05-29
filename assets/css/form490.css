@@ -1,0 +1,40 @@
+.card-header {
+    background-color: #0563bb;
+    color: #fff;
+    border-radius: 25px 25px 0 0;
+}
+.form-control {
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: solid 1px #000000;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #6c757d;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.col-md-6 {
+    margin-bottom: 5rem;
+}
