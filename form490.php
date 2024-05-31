@@ -1,3 +1,19 @@
+<?php
+session_start();
+include 'Library.php';
+
+// Cek jika belum login atau bukan user yang tepat, redirect ke login
+if (!isset($_SESSION['nim']) || $_SESSION['nim'] !== '2213010490') {
+    header("Location: index.php");
+    exit;
+}
+
+// Proses logout jika diminta
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    $library = new Library();
+    $library->logout();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +63,12 @@
                             Formulir Pendaftaran Member Perpustakaan
                         </div>
                         <div class="card-body">
+
+                            <h1>Selamat datang, <?= $_SESSION['name'] ?></h1>
+                            <p>NIM: <?= $_SESSION['nim'] ?></p>
+                            <img src="<?= $_SESSION['image'] ?>" alt="Foto">
+                            <a href="?action=logout">Logout</a>
+                            
                             <form action="" method="post">
                                 <div class="form-group">
                                     <label for="nama">Nama:</label>

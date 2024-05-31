@@ -1,3 +1,19 @@
+<?php
+session_start();
+include 'Library.php';
+
+// Cek jika belum login atau bukan user yang tepat, redirect ke login
+if (!isset($_SESSION['nim']) || $_SESSION['nim'] !== '2213010496') {
+    header("Location: index.php");
+    exit;
+}
+
+// Proses logout jika diminta
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    $library = new Library();
+    $library->logout();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,8 +46,8 @@
     <header id="header" class="d-flex flex-column justify-content-center">
         <nav id="navbar" class="navbar nav-menu">
             <ul>
-                <li><a href="index.php" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                <li><a href="index.php#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+                <li><a href="group6.php" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+                <li><a href="group6.php#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
                 <li><a href="form496.php" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Member</span></a></li>
                 <li><a href="form490.php" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Register</span></a></li>
             </ul>
@@ -46,6 +62,10 @@
                             Cek Member
                         </div>
                         <div class="card-body">
+                            <h1>Selamat datang, <?= $_SESSION['name'] ?></h1>
+                            <p>NIM: <?= $_SESSION['nim'] ?></p>
+                            <img src="<?= $_SESSION['image'] ?>" alt="Foto">
+                            <a href="?action=logout">Logout</a>
                             <form action="" method="post">
                                 <div class="form-group">
                                     <label for="nama">Nama:</label>
@@ -72,6 +92,7 @@
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+
                                 <?php
                                 // Membuat class Member dengan konstruktor dan minimal 5 property
                                 class Member496
@@ -90,6 +111,7 @@
                                         $this->email496 = $email;
                                         $this->statusKeanggotaan496 = $statusKeanggotaan;
                                     }
+
                                     protected function searchData($dataArray, $keyword)
                                     {
                                         $index = array_search($keyword, $dataArray);
@@ -106,12 +128,14 @@
                                             echo '</div>';
                                         }
                                     }
+
                                     public function processFormData($formData)
                                     {
                                         // Memanggil searchData dari dalam kelas
                                         $this->searchData($formData, $formData['nama496']);
                                     }
                                 }
+
                                 class PremiumMember extends Member496
                                 {
                                     public function showPremiumInfo()
@@ -123,15 +147,32 @@
                                         } else {
                                             $nama[] = $this->nama496;
                                             return $nama;
-                                            // return
-                                                // "Nama: " . $this->nama496 . "<br>" .
-                                                // "Alamat: " . $this->alamat496 . "<br>" .
-                                                // "Nomor Telepon: " . $this->nomorTelepon496 . "<br>" .
-                                                // "Email: " . $this->email496 . "<br>" .
-                                                // "Status Keanggotaan: " . $this->statusKeanggotaan496;
                                         }
-                                    }                                    
+                                    }
+
+                                    public static function __callStatic($name, $arguments)
+                                    {
+                                        if ($name == 'checkMembership') {
+                                            $nama = $arguments[0];
+                                            $status = $arguments[1];
+
+                                            if ($status == "Premium") {
+                                                echo '<div class="alert alert-info" role="alert">';
+                                                echo "Member $nama memiliki status keanggotaan Premium.";
+                                                echo '</div>';
+                                            } else {
+                                                echo '<div class="alert alert-warning" role="alert">';
+                                                echo "Member $nama memiliki status keanggotaan Reguler.";
+                                                echo '</div>';
+                                            }
+                                        } else {
+                                            echo '<div class="alert alert-danger" role="alert">';
+                                            echo "Method $name tidak ditemukan.";
+                                            echo '</div>';
+                                        }
+                                    }
                                 }
+
                                 // Proses form
                                 if (isset($_POST['submit'])) {
                                     $nama = $_POST['nama496'];
@@ -167,6 +208,9 @@
                                             $member->processFormData($_POST);
                                         }
                                     }
+
+                                    // Memanggil method statis menggunakan overloading
+                                    PremiumMember::checkMembership($nama, $statusKeanggotaan);
                                 }
                                 ?>
                             </form>
