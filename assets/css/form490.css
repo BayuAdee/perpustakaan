@@ -1,40 +1,137 @@
-.card-header {
-    background-color: #0563bb;
-    color: #fff;
-    border-radius: 25px 25px 0 0;
-}
-.form-control {
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-}
-.form-group label {
-    font-weight: bold;
-}
 
-.form-control {
-    border-radius: 10px;
-    border: solid 1px #000000;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-}
+    /* Importing fonts from Google */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-.form-control:focus {
-    outline: none;
-    box-shadow: none;
-    border-color: #6c757d;
-}
+    /* Reseting */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
 
-.btn-primary {
-    border-radius: 25px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-}
+    body {
+        width: 100%;
+        height: 100vh;
+        background-image: url('assets/img/book.jpeg');
+        background-size: cover;
+        position: relative;
+    }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-.col-md-6 {
-    margin-bottom: 5rem;
-}
+    .kiri {
+        background-color: #f8f8f8;
+        /* Warna latar belakang kiri */
+    }
+
+    .kanan {
+        background-color: #fff;
+        /* Warna latar belakang kanan */
+    }
+
+    .content-right {
+        text-align: center;
+        margin: 2rem;
+    }
+
+    .kotak {
+        max-width: 950px;
+        min-height: 400px;
+        margin: 160px auto;
+        padding: 40px 30px 30px 30px;
+        background-color: #ecf0f3;
+        border-radius: 10px;
+        box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .foto {
+        width: 200px;
+        margin: 2rem auto;
+    }
+
+    .foto img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0px 0px 3px #5f5f5f,
+        0px 0px 0px 5px #ecf0f3,
+        8px 8px 15px #a7aaa7,
+        -8px -8px 15px #fff;
+    }
+
+    .kiri .name {
+        font-weight: 600;
+        font-size: 1.4rem;
+        letter-spacing: 1.3px;
+        padding-left: 10px;
+        color: #555;
+    }
+
+    .kiri .form-field input {
+        width: 100%;
+        display: block;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 1.2rem;
+        color: #666;
+        padding: 10px 15px 10px 10px;
+        /* border: 1px solid red; */
+    }
+
+    .kiri .form-field {
+        padding-left: 10px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+    }
+
+    .kiri .form-field .fas {
+        color: #555;
+    }
+
+    .kiri .btn {
+        box-shadow: none;
+        width: 100%;
+        height: 40px;
+        background-color: #03A9F4;
+        color: #fff;
+        border-radius: 25px;
+        box-shadow: 3px 3px 3px #b1b1b1,
+            -3px -3px 3px #fff;
+        letter-spacing: 1.3px;
+    }
+
+    .kiri .btn:hover {
+        background-color: #039BE5;
+    }
+
+    .kiri a {
+        text-decoration: none;
+        font-size: 0.8rem;
+        color: #03A9F4;
+    }
+
+    .kiri a:hover {
+        color: #039BE5;
+    }
+
+    @media(max-width: 380px) {
+        .kotak {
+            margin: 30px 20px;
+            padding: 40px 15px 15px 15px;
+        }
+    }
+    @media(max-width: 725px) {
+        .kotak {
+            display: block;
+        }
+        .kanan {
+            margin: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }

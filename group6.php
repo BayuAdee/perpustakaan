@@ -42,7 +42,7 @@ if (isset($_SESSION['nim'])) {
   <header id="header" class="d-flex flex-column justify-content-center">
     <nav id="navbar" class="navbar nav-menu">
       <ul>
-        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
         <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
         <li><a href="form496.php" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Member</span></a></li>
         <li><a href="form490.php" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Register</span></a></li>
@@ -50,8 +50,8 @@ if (isset($_SESSION['nim'])) {
     </nav>
   </header>
   <!-- End Header -->
-  <!--  Hero Section  -->
-  <section id="hero" class="d-flex flex-column justify-content-center">
+  <!--  home Section  -->
+  <section id="home" class="d-flex flex-column justify-content-center">
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
       <h1>Perpustakaan Kota Surakarta</h1>
       <p>Untuk <span class="typed" data-typed-items="Pengetahuan, Komunitas, Kreativitas"></span></p>
@@ -63,7 +63,7 @@ if (isset($_SESSION['nim'])) {
         <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
       </div>
     </div>
-  </section><!-- End Hero -->
+  </section><!-- End home -->
   <main id="main">
     <!--  About Section  -->
     <section id="about" class="about">

@@ -4,7 +4,7 @@ include 'Library.php';
 
 // Cek jika belum login atau bukan user yang tepat, redirect ke login
 if (!isset($_SESSION['nim']) || $_SESSION['nim'] !== '2213010490') {
-    header("Location: index.php");
+    header("Location: login.php");
     exit;
 }
 
@@ -37,7 +37,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/form490.css" rel="stylesheet">
+    <link href="assets/css/form496.css" rel="stylesheet">
 </head>
 
 <body>
@@ -46,129 +46,149 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     <header id="header" class="d-flex flex-column justify-content-center">
         <nav id="navbar" class="navbar nav-menu">
             <ul>
-                <li><a href="index.php" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                <li><a href="index.php#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+                <li><a href="group6.php" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+                <li><a href="group6.php#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
                 <li><a href="form496.php" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Member</span></a></li>
                 <li><a href="form490.php" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Register</span></a></li>
             </ul>
         </nav>
     </header>
     <main id="main">
-        <!-- disisni -->
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            Formulir Pendaftaran Member Perpustakaan
-                        </div>
-                        <div class="card-body">
-
-                            <h1>Selamat datang, <?= $_SESSION['name'] ?></h1>
-                            <p>NIM: <?= $_SESSION['nim'] ?></p>
-                            <img src="<?= $_SESSION['image'] ?>" alt="Foto">
-                            <a href="?action=logout">Logout</a>
-                            
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="nama">Nama:</label>
-                                    <input type="text" class="form-control" id="nama" name="nama">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alamat">Alamat:</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat">
-                                </div>
-                                <div class="form-group">
-                                    <label for="nik">NIK:</label>
-                                    <input type="number" class="form-control" id="nik" name="nik">
-                                </div>
-                                <div class="form-group">
-                                    <label for="usia">Usia:</label>
-                                    <input type="number" class="form-control" id="usia" name="usia">
-                                </div>
-                                <div class="form-group">
-                                    <label for="jenisKelamin">Jenis Kelamin:</label>
-                                    <select name="jenisKelamin" id="jenisKelamin">
-                                        <option value="" disabled selected></option>
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-
-                                <div class="container">
-                                    <?php
-
-                                    class daftar490
-                                    {
-
-                                        protected $nama490;
-                                        protected $alamat490;
-                                        protected $nik490;
-                                        protected $usia490;
-                                        protected $jenisKelamin490;
-
-                                        public function __construct()
-                                        {
-                                            $this->nama490 = $_POST['nama'];
-                                            $this->alamat490 = $_POST['alamat'];
-                                            $this->nik490 = $_POST['nik'];
-                                            $this->usia490 = $_POST['usia'];
-                                            $this->jenisKelamin490 = $_POST['jenisKelamin'];
-                                        }
-
-                                        protected function get_daftar490()
-                                        {
-                                            return
-                                                "Nama : " .
-                                                $this->nama490 . "<br>" .
-                                                "Alamat : " .
-                                                $this->alamat490 . "<br>" .
-                                                "NIK : " .
-                                                $this->nik490 . "<br>" .
-                                                "Usia : " .
-                                                $this->usia490 . "<br>" .
-                                                "Jenis Kelamin : " .
-                                                $this->jenisKelamin490;
-                                        }
-                                    }
-
-                                    class tambah490 extends daftar490
-                                    {
-                                        public function get_memberbaru490()
-                                        {
-                                            $arraynama = array("1" => "ade", "2" => "okta", "3" => "tata");
-
-                                            $index = array_search($this->nama490, $arraynama);
-                                            if ($index !== false) {
-                                                echo '<div class="alert alert-warning" role="alert">Data sudah terdaftar</div>';
-                                            } else {
-                                                $arraynama[] = $this->nama490;
-
-                                                // Output array contents
-                                                echo '<div class="alert alert-success" role="alert">';
-                                                foreach ($arraynama as $key => $value) {
-                                                    echo "Index: " . $key . ", Value: " . $value . "<br>";
-                                                }
-                                                echo '</div>';
-                                            }
-                                        }
-                                    }
-
-                                    // Check if form is submitted
-                                    if ($_POST) {
-                                        $tambah490 = new tambah490;
-                                        echo $tambah490->get_memberbaru490();
-                                    }
-
-                                    ?>
-                                </div>
-                            </form>
-                        </div>
+        <div class="kotak">
+            <div class="kiri">
+                <div class="text-center mt-4 name">
+                    Formulir Pendaftaran Member Perpustakaan
+                </div>
+                <form class="p-3 mt-3" method="post" action="">
+                    <div class="form-field d-flex align-items-center">
+                        <label for="nama">Nama:</label>
+                        <input type="text" class="form-control" id="nama" name="nama490">
                     </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="alamat">Alamat:</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat490">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="nik">NIK:</label>
+                        <input type="number" class="form-control" id="nik" name="nik490">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="usia">Usia:</label>
+                        <input type="number" class="form-control" id="usia" name="usia490">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="jenisKelamin">Jenis Kelamin:</label>
+                        <select name="jenisKelamin490" id="jenisKelamin">
+                            <option value="" disabled selected></option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn mt-3" name="submit">Submit</button>
+                </form>
+                <div class="text-center fs-6">
+                    <a href="group6.php">Kembali ke Beranda</a>
+                </div>
+
+                <?php
+
+                class daftar490
+                {
+                    protected $nama490;
+                    protected $alamat490;
+                    protected $nik490;
+                    protected $usia490;
+                    protected $jenisKelamin490;
+
+                    public function __construct()
+                    {
+                        $this->nama490 = $_POST['nama490'];
+                        $this->alamat490 = $_POST['alamat490'];
+                        $this->nik490 = $_POST['nik490'];
+                        $this->usia490 = $_POST['usia490'];
+                        $this->jenisKelamin490 = $_POST['jenisKelamin490'];
+                    }
+
+                    protected function get_daftar490()
+                    {
+                        return
+                            "Nama : " . $this->nama490 . "<br>" .
+                            "Alamat : " . $this->alamat490 . "<br>" .
+                            "NIK : " . $this->nik490 . "<br>" .
+                            "Usia : " . $this->usia490 . "<br>" .
+                            "Jenis Kelamin : " . $this->jenisKelamin490;
+                    }
+                }
+
+                class tambah490 extends daftar490
+                {
+                    public function get_memberbaru490()
+                    {
+                        $arraynama = array("1" => "ade", "2" => "okta", "3" => "tata");
+
+                        $index = array_search($this->nama490, $arraynama);
+                        if ($index !== false) {
+                            echo '<div class="alert alert-warning" role="alert">Data sudah terdaftar</div>';
+                        } else {
+                            $arraynama[] = $this->nama490;
+
+                            // Output array contents
+                            echo '<div class="alert alert-success" role="alert">';
+                            foreach ($arraynama as $key => $value) {
+                                echo "Index: " . $key . ", Value: " . $value . "<br>";
+                            }
+                            echo '</div>';
+                        }
+                    }
+
+                    public static function __callStatic($name, $arguments)
+                    {
+                        if ($name === 'tambahMemberBaru') {
+                            $nama = $arguments[0];
+                            $usia = $arguments[1];
+
+                            if ($usia >= 18) {
+                                return "Member baru dengan nama $nama dan usia $usia telah berhasil ditambahkan.";
+                            } else {
+                                return "Pendaftaran gagal. $nama belum cukup usia.";
+                            }
+                        } else {
+                            return "Method $name tidak ditemukan.";
+                        }
+                    }
+                }
+
+                // Check if form is submitted
+                if ($_POST) {
+                    $tambah490 = new tambah490;
+                    echo $tambah490->get_memberbaru490();
+
+                    // Mengakses method yang tidak dideklarasikan secara eksplisit
+                    $nama = $_POST['nama490'];
+                    $usia = $_POST['usia490'];
+                    $result = tambah490::tambahMemberBaru($nama, $usia);
+                    echo '<div class="alert alert-info" role="alert">' . $result . '</div>';
+                }
+
+                ?>
+
+            </div>
+            <div class="kanan">
+                <div class="foto">
+                    <img src="<?= $_SESSION['image'] ?>" alt="Foto">
+                    <!-- <img src="/assets/img/book.jpeg" alt=""> -->
+                    <!-- <img src="assets/img/ade.png" alt="Ade"> -->
+                </div>
+                <!-- Konten tambahan di sini (bisa berupa gambar atau teks lain) -->
+                <div class="content-right">
+                    <!-- Tambahkan konten lain di sini -->
+                    <h2>Selamat Datang, <?= $_SESSION['name'] ?>!!</h2>
+                    <p>NIM : <?= $_SESSION['nim'] ?></p>
+                    <!-- <a href="?action=logout">Logout</a> -->
+                    <button type="button" class="btn btn-primary"><a href="?action=logout" class="text-light">Logout</a></button>
+                    <!-- <button class="btn mt-3" type="button"><a href="?action=logout">Logout</a></button> -->
                 </div>
             </div>
-        </div>
         </div>
     </main>
     <footer id="footer">
@@ -208,3 +228,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 </body>
 
 </html>
+<style>
+    body {
+        width: 100%;
+        height: 100vh;
+        background-image: url('assets/img/book.jpeg');
+        background-size: cover;
+        position: relative;
+    }
+</style>

@@ -4,7 +4,7 @@ include 'Library.php';
 
 // Cek jika belum login atau bukan user yang tepat, redirect ke login
 if (!isset($_SESSION['nim']) || $_SESSION['nim'] !== '2213010496') {
-    header("Location: index.php");
+    header("Location: login.php");
     exit;
 }
 
@@ -54,168 +54,178 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         </nav>
     </header>
     <main id="main">
-        <div class="container mt-5">
-            <div class="row justify-content-center bg">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-center fs-4">
-                            Cek Member
-                        </div>
-                        <div class="card-body">
-                            <h1>Selamat datang, <?= $_SESSION['name'] ?></h1>
-                            <p>NIM: <?= $_SESSION['nim'] ?></p>
-                            <img src="<?= $_SESSION['image'] ?>" alt="Foto">
-                            <a href="?action=logout">Logout</a>
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="nama">Nama:</label>
-                                    <input type="text" class="form-control" id="nama" name="nama496">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alamat">Alamat:</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat496">
-                                </div>
-                                <div class="form-group">
-                                    <label for="nomorTelepon">Nomor Telepon:</label>
-                                    <input type="number" class="form-control" id="nomorTelepon" name="nomorTelepon496">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" name="email496">
-                                </div>
-                                <div class="form-group">
-                                    <label for="statusKeanggotaan">Status Keanggotaan:</label>
-                                    <select name="statusKeanggotaan496" id="statusKeanggotaan" class="form-control">
-                                        <option value="" disabled selected>Pilih Status</option>
-                                        <option value="Punya Membership">Punya Membership</option>
-                                        <option value="Tidak Punya Membership">Tidak Punya Membership</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-
-                                <?php
-                                // Membuat class Member dengan konstruktor dan minimal 5 property
-                                class Member496
-                                {
-                                    protected $nama496;
-                                    protected $alamat496;
-                                    protected $nomorTelepon496;
-                                    protected $email496;
-                                    protected $statusKeanggotaan496;
-
-                                    public function __construct($nama, $alamat, $nomorTelepon, $email, $statusKeanggotaan)
-                                    {
-                                        $this->nama496 = $nama;
-                                        $this->alamat496 = $alamat;
-                                        $this->nomorTelepon496 = $nomorTelepon;
-                                        $this->email496 = $email;
-                                        $this->statusKeanggotaan496 = $statusKeanggotaan;
-                                    }
-
-                                    protected function searchData($dataArray, $keyword)
-                                    {
-                                        $index = array_search($keyword, $dataArray);
-                                        if ($index !== false) {
-                                            echo '<div class="alert alert-success" role="alert" style="margin-top: 30px; margin-bottom: 10px">';
-                                            echo "Data ditemukan:<br>";
-                                            echo "Nama: " . $dataArray['nama496'] . "<br>";
-                                            echo "Alamat: " . $dataArray['alamat496'] . "<br>";
-                                            echo "Status Keanggotaan: " . $dataArray['statusKeanggotaan496'] . "<br>";
-                                            echo '</div>';
-                                        } else {
-                                            echo '<div class="alert alert-danger" role="alert" style="margin-top: 30px; margin-bottom: 10px">';
-                                            echo "Data tidak ditemukan.";
-                                            echo '</div>';
-                                        }
-                                    }
-
-                                    public function processFormData($formData)
-                                    {
-                                        // Memanggil searchData dari dalam kelas
-                                        $this->searchData($formData, $formData['nama496']);
-                                    }
-                                }
-
-                                class PremiumMember extends Member496
-                                {
-                                    public function showPremiumInfo()
-                                    {
-                                        $nama = array('ade', 'okta');
-                                        $index = array_search($this->nama496, $nama);
-                                        if ($index !== false) {
-                                            return "Data sudah pernah dimasukkan.";
-                                        } else {
-                                            $nama[] = $this->nama496;
-                                            return $nama;
-                                        }
-                                    }
-
-                                    public static function __callStatic($name, $arguments)
-                                    {
-                                        if ($name == 'checkMembership') {
-                                            $nama = $arguments[0];
-                                            $status = $arguments[1];
-
-                                            if ($status == "Premium") {
-                                                echo '<div class="alert alert-info" role="alert">';
-                                                echo "Member $nama memiliki status keanggotaan Premium.";
-                                                echo '</div>';
-                                            } else {
-                                                echo '<div class="alert alert-warning" role="alert">';
-                                                echo "Member $nama memiliki status keanggotaan Reguler.";
-                                                echo '</div>';
-                                            }
-                                        } else {
-                                            echo '<div class="alert alert-danger" role="alert">';
-                                            echo "Method $name tidak ditemukan.";
-                                            echo '</div>';
-                                        }
-                                    }
-                                }
-
-                                // Proses form
-                                if (isset($_POST['submit'])) {
-                                    $nama = $_POST['nama496'];
-                                    $alamat = $_POST['alamat496'];
-                                    $nomorTelepon = $_POST['nomorTelepon496'];
-                                    $email = $_POST['email496'];
-                                    $statusKeanggotaan = $_POST['statusKeanggotaan496'];
-
-                                    if ($statusKeanggotaan == "Punya Membership") {
-                                        $membershipLevel = "Premium";
-                                        $premiumMember = new PremiumMember($nama, $alamat, $nomorTelepon, $email, $statusKeanggotaan, $membershipLevel);
-                                        $data = $premiumMember->showPremiumInfo();
-                                        if (is_array($data)) {
-                                            echo '<div class="alert alert-success" role="alert">';
-                                            echo "Data berhasil dimasukkan:<br>";
-                                            foreach ($data as $key) {
-                                                echo $key . "<br>";
-                                            }
-                                            echo '</div>';
-                                        } else {
-                                            echo '<div class="alert alert-warning" role="alert">';
-                                            echo $data;
-                                            echo '</div>';
-                                        }
-                                    } else {
-                                        // Check apakah variabel $premiumMember sudah didefinisikan sebelumnya
-                                        if (isset($premiumMember)) {
-                                            // Jika sudah didefinisikan, gunakan
-                                            $premiumMember->processFormData($_POST);
-                                        } else {
-                                            // Jika belum didefinisikan, buat objek Member biasa
-                                            $member = new Member496($nama, $alamat, $nomorTelepon, $email, $statusKeanggotaan);
-                                            $member->processFormData($_POST);
-                                        }
-                                    }
-
-                                    // Memanggil method statis menggunakan overloading
-                                    PremiumMember::checkMembership($nama, $statusKeanggotaan);
-                                }
-                                ?>
-                            </form>
-                        </div>
+        <div class="kotak">
+            <div class="kiri">
+                <div class="text-center mt-4 name">
+                    Cek Membership
+                </div>
+                <form class="p-3 mt-3" method="post" action="">
+                    <div class="form-field d-flex align-items-center">
+                        <label for="nama">Nama:</label>
+                        <input type="text" class="form-control" id="nama" name="nama496">
                     </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="alamat">Alamat:</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat496">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="nomorTelepon">Nomor Telepon:</label>
+                        <input type="number" class="form-control" id="nomorTelepon" name="nomorTelepon496">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email496">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <label for="statusKeanggotaan">Status Keanggotaan:</label>
+                        <select name="statusKeanggotaan496" id="statusKeanggotaan" class="form-control">
+                            <option value="" disabled selected>Pilih Status</option>
+                            <option value="Punya Membership">Punya Membership</option>
+                            <option value="Tidak Punya Membership">Tidak Punya Membership</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn mt-3" name="submit">Submit</button>
+                </form>
+                <div class="text-center fs-6">
+                    <a href="group6.php">Kembali ke Beranda</a>
+                </div>
+
+                <?php
+                // Membuat class Member dengan konstruktor dan minimal 5 property
+                class Member496
+                {
+                    protected $nama496;
+                    protected $alamat496;
+                    protected $nomorTelepon496;
+                    protected $email496;
+                    protected $statusKeanggotaan496;
+
+                    public function __construct($nama, $alamat, $nomorTelepon, $email, $statusKeanggotaan)
+                    {
+                        $this->nama496 = $nama;
+                        $this->alamat496 = $alamat;
+                        $this->nomorTelepon496 = $nomorTelepon;
+                        $this->email496 = $email;
+                        $this->statusKeanggotaan496 = $statusKeanggotaan;
+                    }
+
+                    protected function searchData($dataArray, $keyword)
+                    {
+                        $index = array_search($keyword, $dataArray);
+                        if ($index !== false) {
+                            echo '<div class="alert alert-success" role="alert" style="margin-top: 30px; margin-bottom: 10px">';
+                            echo "Data ditemukan:<br>";
+                            echo "Nama: " . $dataArray['nama496'] . "<br>";
+                            echo "Alamat: " . $dataArray['alamat496'] . "<br>";
+                            echo "Status Keanggotaan: " . $dataArray['statusKeanggotaan496'] . "<br>";
+                            echo '</div>';
+                        } else {
+                            echo '<div class="alert alert-danger" role="alert" style="margin-top: 30px; margin-bottom: 10px">';
+                            echo "Data tidak ditemukan.";
+                            echo '</div>';
+                        }
+                    }
+
+                    public function processFormData($formData)
+                    {
+                        // Memanggil searchData dari dalam kelas
+                        $this->searchData($formData, $formData['nama496']);
+                    }
+                }
+
+                class PremiumMember extends Member496
+                {
+                    public function showPremiumInfo()
+                    {
+                        $nama = array('ade', 'okta');
+                        $index = array_search($this->nama496, $nama);
+                        if ($index !== false) {
+                            return "Data sudah pernah dimasukkan.";
+                        } else {
+                            $nama[] = $this->nama496;
+                            return $nama;
+                        }
+                    }
+
+                    public static function __callStatic($name, $arguments)
+                    {
+                        if ($name == 'checkMembership') {
+                            $nama = $arguments[0];
+                            $status = $arguments[1];
+
+                            if ($status == "Premium") {
+                                echo '<div class="alert alert-info" role="alert">';
+                                echo "Member $nama memiliki status keanggotaan Premium.";
+                                echo '</div>';
+                            } else {
+                                echo '<div class="alert alert-warning" role="alert">';
+                                echo "Member $nama memiliki status keanggotaan Reguler.";
+                                echo '</div>';
+                            }
+                        } else {
+                            echo '<div class="alert alert-danger" role="alert">';
+                            echo "Method $name tidak ditemukan.";
+                            echo '</div>';
+                        }
+                    }
+                }
+
+                // Proses form
+                if (isset($_POST['submit'])) {
+                    $nama = $_POST['nama496'];
+                    $alamat = $_POST['alamat496'];
+                    $nomorTelepon = $_POST['nomorTelepon496'];
+                    $email = $_POST['email496'];
+                    $statusKeanggotaan = $_POST['statusKeanggotaan496'];
+
+                    if ($statusKeanggotaan == "Punya Membership") {
+                        $membershipLevel = "Premium";
+                        $premiumMember = new PremiumMember($nama, $alamat, $nomorTelepon, $email, $statusKeanggotaan, $membershipLevel);
+                        $data = $premiumMember->showPremiumInfo();
+                        if (is_array($data)) {
+                            echo '<div class="alert alert-success" role="alert">';
+                            echo "Data berhasil dimasukkan:<br>";
+                            foreach ($data as $key) {
+                                echo $key . "<br>";
+                            }
+                            echo '</div>';
+                        } else {
+                            echo '<div class="alert alert-warning" role="alert">';
+                            echo $data;
+                            echo '</div>';
+                        }
+                    } else {
+                        // Check apakah variabel $premiumMember sudah didefinisikan sebelumnya
+                        if (isset($premiumMember)) {
+                            // Jika sudah didefinisikan, gunakan
+                            $premiumMember->processFormData($_POST);
+                        } else {
+                            // Jika belum didefinisikan, buat objek Member biasa
+                            $member = new Member496($nama, $alamat, $nomorTelepon, $email, $statusKeanggotaan);
+                            $member->processFormData($_POST);
+                        }
+                    }
+
+                    // Memanggil method statis menggunakan overloading
+                    PremiumMember::checkMembership($nama, $statusKeanggotaan);
+                }
+                ?>
+
+            </div>
+            <div class="kanan">
+                <div class="foto">
+                    <img src="<?= $_SESSION['image'] ?>" alt="Foto">
+                    <!-- <img src="/assets/img/book.jpeg" alt=""> -->
+                    <!-- <img src="assets/img/ade.png" alt="Ade"> -->
+                </div>
+                <!-- Konten tambahan di sini (bisa berupa gambar atau teks lain) -->
+                <div class="content-right">
+                    <!-- Tambahkan konten lain di sini -->
+                    <h2>Selamat Datang, <?= $_SESSION['name'] ?>!!</h2>
+                    <p>NIM : <?= $_SESSION['nim'] ?></p>
+                    <!-- <a href="?action=logout">Logout</a> -->
+                    <button type="button" class="btn btn-primary"><a href="?action=logout" class="text-light">Logout</a></button>
+                    <!-- <button class="btn mt-3" type="button"><a href="?action=logout">Logout</a></button> -->
                 </div>
             </div>
         </div>
@@ -257,3 +267,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 </body>
 
 </html>
+<style>
+        body {
+        width: 100%;
+        height: 100vh;
+        background-image: url('assets/img/book.jpeg');
+        background-size: cover;
+        position: relative;
+    }
+</style>
